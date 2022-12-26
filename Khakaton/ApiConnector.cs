@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.Devices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,6 +18,7 @@ namespace Khakaton
         string getMapmethod => $"{baseUri}/json/map/{map_id}.json";
         string getMap2method => $"{baseUri}/json/map/{map2_id}.json";
         string postRouteMethod => $"{baseUri}/api/round";
+        string postPresentingGiftsMethod => $"{baseUri}/api/round2";
         string apikey = "bf58cffd-39b2-44ce-91db-ba78ac5b2264";
         JSONOperator jSONOperator = new JSONOperator();
         public string GetChildAndGiftsMap()
@@ -44,6 +46,32 @@ namespace Khakaton
             jSONOperator.SaveMap(mapData, map2_id);
             return mapData;
         }
+
+        public string SendResult2(List<PresentingGiftDTO> presentingGifts)
+        {
+            string resultData = string.Empty;
+            Result2DTO requestContent = new Result2DTO();
+            requestContent.mapID = map2_id;
+            requestContent.presentingGifts = presentingGifts;
+            jSONOperator.SavePresentGifts(JsonSerializer.Serialize(requestContent));
+
+            using HttpClient httpClient = new HttpClient();
+            var msg = new HttpRequestMessage(HttpMethod.Post, postPresentingGiftsMethod);
+            msg.Headers.Add("X-API-Key", apikey);
+            msg.Content = JsonContent.Create(requestContent);
+
+            using HttpResponseMessage result = httpClient.Send(msg);
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                var contentTask = result.Content.ReadAsStringAsync();
+                contentTask.Wait();
+                resultData = contentTask.Result;
+            }
+
+            jSONOperator.SaveStart2Process(resultData);
+            return resultData;
+        }
+
         public string GetMapData()
         {
             jSONOperator.GetMapData(map_id, out string mapData);

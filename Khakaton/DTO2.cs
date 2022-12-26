@@ -34,6 +34,6 @@ namespace Khakaton
     public class Result2DTO
     {
         public string mapID { get; set; }
-        public PresentingGiftDTO[] presentingGifts { get; set; }
+        public List<PresentingGiftDTO> presentingGifts { get; set; }
     }
 }
