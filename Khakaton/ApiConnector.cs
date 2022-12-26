@@ -13,10 +13,37 @@ namespace Khakaton
     {
         string baseUri => @"https://datsanta.dats.team";
         string map_id = "faf7ef78-41b3-4a36-8423-688a61929c08";
+        string map2_id = "a8e01288-28f8-45ee-9db4-f74fc4ff02c8";
         string getMapmethod => $"{baseUri}/json/map/{map_id}.json";
+        string getMap2method => $"{baseUri}/json/map/{map2_id}.json";
         string postRouteMethod => $"{baseUri}/api/round";
         string apikey = "bf58cffd-39b2-44ce-91db-ba78ac5b2264";
         JSONOperator jSONOperator = new JSONOperator();
+        public string GetChildAndGiftsMap()
+        {
+            jSONOperator.GetMapData(map2_id, out string mapData);
+            if (mapData != string.Empty)
+            {
+                return mapData;
+            }
+            using HttpClient httpClient = new HttpClient();
+            var msg = new HttpRequestMessage(HttpMethod.Get, getMap2method);
+            msg.Headers.Add("X-API-Key", apikey);
+            using HttpResponseMessage result = httpClient.Send(msg);
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                var contentTask = result.Content.ReadAsStringAsync();
+                contentTask.Wait();
+                mapData = contentTask.Result;
+            }
+            else
+            {
+                throw new Exception("something wdrong");
+            }
+
+            jSONOperator.SaveMap(mapData, map2_id);
+            return mapData;
+        }
         public string GetMapData()
         {
             jSONOperator.GetMapData(map_id, out string mapData);

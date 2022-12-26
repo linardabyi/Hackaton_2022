@@ -1,4 +1,5 @@
 using Khakaton.DataHandler;
+using Khakaton.DataHandler2Step;
 using System.Text;
 using System.Windows.Forms.VisualStyles;
 
@@ -11,11 +12,13 @@ namespace Khakaton
         int scale = 11;
         ApiConnector apiConnector;
         DataProcesser dataProcesser;
+        Data2Processer data2Processer;
         public Form1()
         {
             InitializeComponent();
             apiConnector = new ApiConnector();
             dataProcesser = new DataProcesser();
+            data2Processer = new Data2Processer();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -25,8 +28,10 @@ namespace Khakaton
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            string mapData = apiConnector.GetMapData();
-            data = dataProcesser.GetData(mapData);
+            //string mapData = apiConnector.GetMapData();
+            string map2Data = apiConnector.GetChildAndGiftsMap();
+            Data2DTO data2 = data2Processer.GetData(map2Data);
+            /*data = dataProcesser.GetData(mapData);
             g = e.Graphics;
             dataProcesser.SetGraphic(g);
             PaintCircles();
@@ -60,7 +65,7 @@ namespace Khakaton
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + ex.StackTrace);
-            }
+            }*/
         }
 
         private void ShowInfo(string userfullInformation)

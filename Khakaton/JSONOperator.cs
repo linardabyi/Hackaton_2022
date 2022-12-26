@@ -9,7 +9,10 @@ namespace Khakaton
     public class JSONOperator
     {
         public string mapId;
+        public string map2Id;
         public string mapFileName => $"map_{mapId}.json";
+
+        public string map2FileName => $"map_{map2Id}.json";
         public string dataMovesFileName => $"moves_{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.json";
         public string responseStartProcessFileName => $"startProcess_{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.json";
         public string responseEndProcessFileName => $"endProcess_{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.json";
@@ -36,6 +39,13 @@ namespace Khakaton
         {
             this.mapId = mapId;
             using StreamWriter file = new(mapFileName);
+            file.Write(jsonMap);
+        }
+
+        public void SaveMap2(string jsonMap, string mapId)
+        {
+            this.map2Id = mapId;
+            using StreamWriter file = new(map2FileName);
             file.Write(jsonMap);
         }
 
