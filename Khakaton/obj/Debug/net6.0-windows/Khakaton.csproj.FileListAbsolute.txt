@@ -16,3 +16,23 @@ C:\Users\Dats\source\repos\Khakaton\Khakaton\obj\Debug\net6.0-windows\Khakaton.p
 C:\Users\Dats\source\repos\Khakaton\Khakaton\obj\Debug\net6.0-windows\Khakaton.genruntimeconfig.cache
 C:\Users\Dats\source\repos\Khakaton\Khakaton\obj\Debug\net6.0-windows\ref\Khakaton.dll
 C:\Users\Dats\source\repos\Khakaton\Khakaton\obj\Debug\net6.0-windows\Khakaton.Properties.Resources.resources
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\bin\Debug\net6.0-windows\Khakaton.exe
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\bin\Debug\net6.0-windows\Khakaton.deps.json
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\bin\Debug\net6.0-windows\Khakaton.runtimeconfig.json
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\bin\Debug\net6.0-windows\Khakaton.dll
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\bin\Debug\net6.0-windows\Khakaton.pdb
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.Form1.resources
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.Properties.Resources.resources
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.AssemblyInfo.cs
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.dll
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\refint\Khakaton.dll
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.pdb
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.genruntimeconfig.cache
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\ref\Khakaton.dll
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.csproj.CopyComplete

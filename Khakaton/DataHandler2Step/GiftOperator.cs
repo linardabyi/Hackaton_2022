@@ -18,19 +18,19 @@ namespace Khakaton.DataHandler2Step
 
         static GiftsData()
         {
-            data.Add("constructors", new GiftInfo("constructors", 3, 10, Gender.Male));
-            data.Add("dolls", new GiftInfo("dolls", 3, 10, Gender.Female));
-            data.Add("radio_controlled_toys", new GiftInfo("radio_controlled_toys", 3, 10, Gender.Male));
-            data.Add("toy_vehicles", new GiftInfo("toy_vehicles", 3, 7, Gender.Male));
-            data.Add("board_games", new GiftInfo("board_games", 7, 10, Gender.Any));
-            data.Add("outdoor_games", new GiftInfo("outdoor_games", 4, 10, Gender.Any));
-            data.Add("playground", new GiftInfo("playground", 0, 4, Gender.Any));
-            data.Add("soft_toys", new GiftInfo("soft_toys", 2, 8, Gender.Female));
-            data.Add("computer_games", new GiftInfo("computer_games", 4, 10, Gender.Male));
-            data.Add("sweets", new GiftInfo("sweets", 3, 10, Gender.Any));
-            data.Add("books", new GiftInfo("books", 9, 10, Gender.Male));
-            data.Add("pet", new GiftInfo("pet", 4, 10, Gender.Any));
-            data.Add("clothes", new GiftInfo("clothes", 7, 10, Gender.Female));
+            data.Add("constructors", new GiftInfo("constructors", 5, 10, Gender.Male));
+            data.Add("dolls", new GiftInfo("dolls", 3, 5, Gender.Female));
+            data.Add("radio_controlled_toys", new GiftInfo("radio_controlled_toys", 5, 10, Gender.Male));
+            data.Add("toy_vehicles", new GiftInfo("toy_vehicles", 2, 5, Gender.Male));
+            data.Add("board_games", new GiftInfo("board_games", 8, 10, Gender.Any));
+            data.Add("outdoor_games", new GiftInfo("outdoor_games", 7, 10, Gender.Any));
+            data.Add("playground", new GiftInfo("playground", 2, 5, Gender.Any));
+            data.Add("soft_toys", new GiftInfo("soft_toys", 0, 3, Gender.Any));
+            data.Add("computer_games", new GiftInfo("computer_games", 7, 10, Gender.Male));
+            data.Add("sweets", new GiftInfo("sweets", 1, 4, Gender.Any));
+            data.Add("books", new GiftInfo("books", 0, 10, Gender.Any));
+            data.Add("pet", new GiftInfo("pet", 6, 10, Gender.Any));
+            data.Add("clothes", new GiftInfo("clothes", 9, 10, Gender.Female));
         }
     }
 

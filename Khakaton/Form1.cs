@@ -1,7 +1,11 @@
 using Khakaton.DataHandler;
 using Khakaton.DataHandler2Step;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System.Net;
 using System.Text;
 using System.Windows.Forms.VisualStyles;
+using System.Xml;
 
 namespace Khakaton
 {
@@ -31,6 +35,17 @@ namespace Khakaton
             //string mapData = apiConnector.GetMapData();
             string map2Data = apiConnector.GetChildAndGiftsMap();
             Data2DTO data2 = data2Processer.GetData(map2Data);
+
+            List<PresentingGiftDTO> order = data2Processer.PresentGifts();
+
+            Result2DTO dto = new();
+            dto.mapID = "a8e01288-28f8-45ee-9db4-f74fc4ff02c8";
+            dto.presentingGifts = order.ToArray();
+
+            var json = JsonConvert.SerializeObject(dto, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+
+            int a = 5;
+
             /*data = dataProcesser.GetData(mapData);
             g = e.Graphics;
             dataProcesser.SetGraphic(g);
