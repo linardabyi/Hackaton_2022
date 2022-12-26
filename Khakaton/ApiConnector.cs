@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Khakaton
@@ -15,10 +16,14 @@ namespace Khakaton
         string getMapmethod => $"{baseUri}/json/map/{map_id}.json";
         string postRouteMethod => $"{baseUri}/api/round";
         string apikey = "bf58cffd-39b2-44ce-91db-ba78ac5b2264";
-
+        JSONOperator jSONOperator = new JSONOperator();
         public string GetMapData()
         {
-            string mapData = string.Empty;
+            jSONOperator.GetMapData(map_id, out string mapData);
+            if (mapData != string.Empty)
+            {
+                return mapData;
+            }
             using HttpClient httpClient = new HttpClient();
             var msg = new HttpRequestMessage(HttpMethod.Get, getMapmethod);
             msg.Headers.Add("X-API-Key", apikey);
@@ -33,6 +38,8 @@ namespace Khakaton
             {
                 throw new Exception("something wdrong");
             }
+            
+            jSONOperator.SaveMap(mapData, map_id);
             return mapData;
         }
 
@@ -45,11 +52,13 @@ namespace Khakaton
             requestContent.moves = moves;
             requestContent.moves.RemoveAt(moves.Count - 1);
             requestContent.moves.Reverse();
-            
+            jSONOperator.SaveMoves(JsonSerializer.Serialize(requestContent));
+
             using HttpClient httpClient = new HttpClient();
             var msg = new HttpRequestMessage(HttpMethod.Post, postRouteMethod);
             msg.Headers.Add("X-API-Key", apikey);
             msg.Content = JsonContent.Create(requestContent);
+            
             using HttpResponseMessage result = httpClient.Send(msg);
             if (result.StatusCode== HttpStatusCode.OK)
             {
@@ -57,7 +66,8 @@ namespace Khakaton
                 contentTask.Wait();
                 resultData = contentTask.Result;
             }
-
+            
+            jSONOperator.SaveStartProcess(resultData);
             return resultData;
         }
     }
