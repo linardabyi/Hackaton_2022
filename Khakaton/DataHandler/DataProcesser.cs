@@ -182,7 +182,7 @@ namespace Khakaton.DataHandler
                 return null;
             }
             var newBag = new List<int>();
-            giftDTO giftForFirst = GetGift(farChild);
+            giftDTO giftForFirst = GetGift(farChild, 0, 0);
             
             if (giftForFirst == null)
             {
@@ -217,7 +217,7 @@ namespace Khakaton.DataHandler
                 childDTO newChild = FindNearestChild(dataDTO, route.Last());
                 if (newChild == null)
                     break;
-                giftDTO gift = GetGift(newChild);
+                giftDTO gift = GetGift(newChild, currentWeight, currentVolume);
                 if (gift == null || currentSum + gift.price > budget
                     || currentWeight + gift.weight > maxWeight
                     || currentVolume + gift.volume > maxVolume)
@@ -276,6 +276,10 @@ namespace Khakaton.DataHandler
             if (newBag.Count >0) { bags.Add(newBag); }
             moves.AddRange(route.Select(x => new moveDTO(x.X, x.Y)));
             return route;
+        }
+
+        public void ReplaceWithMoreExpensive()
+        {
         }
 
         public resultResponseDTO ReadResultResponse(string resultResponse)
@@ -473,8 +477,51 @@ namespace Khakaton.DataHandler
 
         }
 
-        private giftDTO GetGift(childDTO child)
+        private giftDTO GetGift(childDTO child, int currentWeight, int currentVolume)
         {
+            for (int i = 1998; i < gifts.Count; i++)
+            {
+                if (givenGifts.Contains(gifts[i].id))
+                    continue;
+
+                if (!IsGiftAgeCorrect(gifts[i], child))
+                    continue;
+
+                
+                if (child.Gender == Gender.Male)
+                {
+                    if (IsMaleOrAnyGift(gifts[i]))
+                    {
+                        //if (gifts[i].weight + currentWeight > maxWeight)
+                        //    continue;
+                        //if (gifts[i].volume + currentVolume > maxVolume)
+                        //    continue;
+                        //if (gifts[i].price + currentSum > budget)
+                        //    continue;
+
+                        givenGifts.Add(gifts[i].id);
+
+                        return gifts[i];
+                    }
+                }
+                else
+                {
+                    if (IsFemaleOrAnyGift(gifts[i]))
+                    {
+                        //if (gifts[i].weight + currentWeight > maxWeight)
+                        //    continue;
+                        //if (gifts[i].volume + currentVolume > maxVolume)
+                        //    continue;
+                        //if (gifts[i].price + currentSum > budget)
+                        //    continue;
+
+                        givenGifts.Add(gifts[i].id);
+
+                        return gifts[i];
+                    }
+                }
+            }
+
             for (int i = 0; i < gifts.Count; i++)
             {
                 if (givenGifts.Contains(gifts[i].id))
@@ -487,6 +534,13 @@ namespace Khakaton.DataHandler
                 {
                     if (IsMaleOrAnyGift(gifts[i]))
                     {
+                        //if (gifts[i].weight + currentWeight > maxWeight)
+                        //    continue;
+                        //if (gifts[i].volume + currentVolume > maxVolume)
+                        //    continue;
+                        //if (gifts[i].price + currentSum > budget)
+                        //    continue;
+
                         givenGifts.Add(gifts[i].id);
 
                         return gifts[i];
@@ -496,6 +550,13 @@ namespace Khakaton.DataHandler
                 {
                     if (IsFemaleOrAnyGift(gifts[i]))
                     {
+                        //if (gifts[i].weight + currentWeight > maxWeight)
+                        //    continue;
+                        //if (gifts[i].volume + currentVolume > maxVolume)
+                        //    continue;
+                        //if (gifts[i].price + currentSum > budget)
+                        //    continue;
+
                         givenGifts.Add(gifts[i].id);
 
                         return gifts[i];

@@ -19,13 +19,13 @@ namespace Khakaton.DataHandler2Step
         static GiftsData()
         {
             data.Add("educational_games", new GiftInfo("educational_games", 6, 10, Gender.Any));
-            data.Add("music_games", new GiftInfo("music_games", 5, 10, Gender.Any));
-            data.Add("bath_toys", new GiftInfo("bath_toys", 0, 4, Gender.Any));
-            data.Add("bike", new GiftInfo("bike", 6, 10, Gender.Male));
-            data.Add("paints", new GiftInfo("paints", 4, 7, Gender.Female));
-            data.Add("casket", new GiftInfo("casket", 5, 8, Gender.Female));
+            data.Add("music_games", new GiftInfo("music_games", 2, 5, Gender.Any));
+            data.Add("bath_toys", new GiftInfo("bath_toys", 0, 3, Gender.Any));
+            data.Add("bike", new GiftInfo("bike", 7, 10, Gender.Male));
+            data.Add("paints", new GiftInfo("paints", 3, 5, Gender.Any));
+            data.Add("casket", new GiftInfo("casket", 6, 9, Gender.Female));
             data.Add("soccer_ball", new GiftInfo("soccer_ball", 6, 10, Gender.Male));
-            data.Add("toy_kitchen", new GiftInfo("toy_kitchen", 4, 7, Gender.Female));
+            data.Add("toy_kitchen", new GiftInfo("toy_kitchen", 5, 8, Gender.Female));
         }
     }
 
