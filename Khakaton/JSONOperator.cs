@@ -16,6 +16,9 @@ namespace Khakaton
         public string dataMovesFileName => $"moves_{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.json";
         public string responseStartProcessFileName => $"startProcess_{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.json";
         public string responseEndProcessFileName => $"endProcess_{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.json";
+        public string dataPresentingGiftsFileName => $"presentGifts_{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.json";
+        public string responseStart2ProcessFileName => $"start2Process_{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.json";
+
 
         public JSONOperator()
         {
@@ -58,6 +61,18 @@ namespace Khakaton
         public void SaveStartProcess(string startProcess)
         {
             using StreamWriter file = new(responseStartProcessFileName);
+            file.Write(startProcess);
+        }
+
+        public void SavePresentGifts(string gifts)
+        {
+            using StreamWriter file = new(dataPresentingGiftsFileName);
+            file.Write(gifts);
+        }
+
+        public void SaveStart2Process(string startProcess)
+        {
+            using StreamWriter file = new(responseStart2ProcessFileName);
             file.Write(startProcess);
         }
     }

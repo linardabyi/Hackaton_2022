@@ -36,3 +36,5 @@ C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\De
 C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\ref\Khakaton.dll
 C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 C:\Users\Admin\Desktop\Hackaton_2022-main (1)\Hackaton_2022-main\Khakaton\obj\Debug\net6.0-windows\Khakaton.csproj.CopyComplete
+C:\Users\Dats\source\repos\Khakaton\Khakaton\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\Dats\source\repos\Khakaton\Khakaton\obj\Debug\net6.0-windows\Khakaton.csproj.CopyComplete

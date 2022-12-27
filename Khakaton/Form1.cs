@@ -32,25 +32,17 @@ namespace Khakaton
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //string mapData = apiConnector.GetMapData();
-            string map2Data = apiConnector.GetChildAndGiftsMap();
-            Data2DTO data2 = data2Processer.GetData(map2Data);
-
-            List<PresentingGiftDTO> order = data2Processer.PresentGifts();
-
-            Result2DTO dto = new();
-            dto.mapID = "a8e01288-28f8-45ee-9db4-f74fc4ff02c8";
-            dto.presentingGifts = order.ToArray();
-
-            var json = JsonConvert.SerializeObject(dto, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
-
-            int a = 5;
-
-            /*data = dataProcesser.GetData(mapData);
+            string mapData = apiConnector.GetMapData();
+            data = dataProcesser.GetData(mapData);
             g = e.Graphics;
             dataProcesser.SetGraphic(g);
             PaintCircles();
             PaintDots();
+
+            //List<PresentingGiftDTO> order = data2Processer.PresentGifts();
+
+            
+            
             while (true)
             {
                 var route = dataProcesser.GetRoute(data);
@@ -62,8 +54,14 @@ namespace Khakaton
                 //System.Threading.Thread.Sleep(5000);
             }
             string usefullInformation = string.Empty;
+            int childrenCount = data.children.Count();
             int notHappyChildren = data.children.Count(child => !child.visited);
             int bagsCount = dataProcesser.Bags.Count();
+            int giftCount = dataProcesser.Bags.SelectMany(x => x).Count();
+            if (childrenCount != giftCount)
+            {
+                throw new Exception("not good");
+            }
             if (notHappyChildren == 0)
             {
                 usefullInformation = $"All children get their presents. {bagsCount} bags";
@@ -80,7 +78,7 @@ namespace Khakaton
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + ex.StackTrace);
-            }*/
+            }
         }
 
         private void ShowInfo(string userfullInformation)

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "CjwyGVQeYoa77epGEGHC9TAeQekYtPdEaIVRRvKlnJEYMl9748WM/D8LZ721YTTLxzS5ML+Sgr7RsKQUwTRpsQ==",
+  "dgSpecHash": "chNEdedXPBI1eMVPI9GU91HCrOPBklAzd/OWlIlo9a6JLUfIJH4vGXTdBLb1/wR2HoksaSy6uzK1QylvlFllJQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\Desktop\\Hackaton_2022-main (1)\\Hackaton_2022-main\\Khakaton\\Khakaton.csproj",
+  "projectFilePath": "C:\\Users\\Dats\\source\\repos\\Khakaton\\Khakaton\\Khakaton.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+    "C:\\Users\\Dats\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
   ],
   "logs": []
 }

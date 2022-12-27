@@ -55,19 +55,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {}
+    "C:\\Users\\Dats\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Hackaton_2022-main (1)\\Hackaton_2022-main\\Khakaton\\Khakaton.csproj",
+      "projectUniqueName": "C:\\Users\\Dats\\source\\repos\\Khakaton\\Khakaton\\Khakaton.csproj",
       "projectName": "Khakaton",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\Hackaton_2022-main (1)\\Hackaton_2022-main\\Khakaton\\Khakaton.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\Hackaton_2022-main (1)\\Hackaton_2022-main\\Khakaton\\obj\\",
+      "projectPath": "C:\\Users\\Dats\\source\\repos\\Khakaton\\Khakaton\\Khakaton.csproj",
+      "packagesPath": "C:\\Users\\Dats\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Dats\\source\\repos\\Khakaton\\Khakaton\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dats\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

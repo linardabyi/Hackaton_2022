@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Khakaton.DataHandler2Step;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace Khakaton
         public int id { get; set; }
         public int weight { get; set; }
         public int volume { get; set; }
+        public string type { get; set; }
+        public int price { get; set; }
     }
 
     public class snowAreaDTO
@@ -30,6 +33,24 @@ namespace Khakaton
     {
         public int x { get; set; }
         public int y { get; set; }
+        public int age { get; set; }
+        public string gender
+        {
+            set
+            {
+                switch (value)
+                {
+                    case "male":
+                        Gender = Gender.Male;
+                        break;
+                    case "female":
+                        Gender = Gender.Female;
+                        break;
+                }
+            }
+        }
+
+        public Gender Gender { get; private set; }
 
         public bool visited = false;
 

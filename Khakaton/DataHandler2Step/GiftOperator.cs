@@ -18,19 +18,14 @@ namespace Khakaton.DataHandler2Step
 
         static GiftsData()
         {
-            data.Add("constructors", new GiftInfo("constructors", 5, 10, Gender.Male));
-            data.Add("dolls", new GiftInfo("dolls", 3, 5, Gender.Female));
-            data.Add("radio_controlled_toys", new GiftInfo("radio_controlled_toys", 5, 10, Gender.Male));
-            data.Add("toy_vehicles", new GiftInfo("toy_vehicles", 2, 5, Gender.Male));
-            data.Add("board_games", new GiftInfo("board_games", 8, 10, Gender.Any));
-            data.Add("outdoor_games", new GiftInfo("outdoor_games", 7, 10, Gender.Any));
-            data.Add("playground", new GiftInfo("playground", 2, 5, Gender.Any));
-            data.Add("soft_toys", new GiftInfo("soft_toys", 0, 3, Gender.Any));
-            data.Add("computer_games", new GiftInfo("computer_games", 7, 10, Gender.Male));
-            data.Add("sweets", new GiftInfo("sweets", 1, 4, Gender.Any));
-            data.Add("books", new GiftInfo("books", 0, 10, Gender.Any));
-            data.Add("pet", new GiftInfo("pet", 6, 10, Gender.Any));
-            data.Add("clothes", new GiftInfo("clothes", 9, 10, Gender.Female));
+            data.Add("educational_games", new GiftInfo("educational_games", 6, 10, Gender.Any));
+            data.Add("music_games", new GiftInfo("music_games", 5, 10, Gender.Any));
+            data.Add("bath_toys", new GiftInfo("bath_toys", 0, 4, Gender.Any));
+            data.Add("bike", new GiftInfo("bike", 6, 10, Gender.Male));
+            data.Add("paints", new GiftInfo("paints", 4, 7, Gender.Female));
+            data.Add("casket", new GiftInfo("casket", 5, 8, Gender.Female));
+            data.Add("soccer_ball", new GiftInfo("soccer_ball", 6, 10, Gender.Male));
+            data.Add("toy_kitchen", new GiftInfo("toy_kitchen", 4, 7, Gender.Female));
         }
     }
 

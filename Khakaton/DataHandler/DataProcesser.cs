@@ -7,6 +7,8 @@ using System.Text.Json;
 using System.Numerics;
 using System.Net;
 using System.Drawing;
+using Khakaton.DataHandler2Step;
+using System.Drawing.Design;
 
 namespace Khakaton.DataHandler
 {
@@ -14,11 +16,17 @@ namespace Khakaton.DataHandler
     {
         const int maxWeight = 200;
         const int maxVolume = 100;
+        const int budget = 50000;
+        int currentSum = 0;
         List<giftDTO> warehouse = new List<giftDTO>();
         List<List<int>> bags = new List<List<int>>();
         List<moveDTO> moves = new List<moveDTO>();
         List<snowAreaDTO> snowAreas = new List<snowAreaDTO>();
+        List<giftDTO> gifts = new List<giftDTO>();
+        HashSet<int> givenGifts = new HashSet<int>();
         Graphics g;
+        int startEntryX, startEntryY;
+        Point StartPoint;
         int bagNumber = 0;
 
         public List<List<int>> Bags => bags;
@@ -35,10 +43,18 @@ namespace Khakaton.DataHandler
             warehouse = result.gifts.ToList();
             PackBags();
             snowAreas = result.snowAreas.ToList();
+            gifts = result.gifts.OrderBy(x => x.price).ToList();
             foreach (var child in result.children)
             {
                 foreach (var snowArea in result.snowAreas)
                 {
+                    double d2 = Math.Sqrt(
+                        Math.Pow(0 - snowArea.x, 2.0)
+                        + Math.Pow(0 - snowArea.y, 2.0));
+                    if (snowArea.r > d2)
+                    {
+                        CalculateStartEntry(snowArea.x, snowArea.y, snowArea.r);
+                    }
                     double d = Math.Sqrt(
                         Math.Pow(child.x - snowArea.x, 2.0)
                         + Math.Pow(child.y - snowArea.y, 2.0));
@@ -95,82 +111,169 @@ namespace Khakaton.DataHandler
                     }
                 }
             }
+
+
             return result;
+        }
+
+        public void CalculateStartEntry(int x, int y, int r)
+        {
+            double d = Math.Sqrt(x * x + y * y);
+            double xv = (0 - x) * r / d;
+            double yv = (0 - y) * r / d;
+            if (xv > 0) xv = (int)xv + 1; else xv = (int)xv - 1;
+            if (yv > 0) yv = (int)yv + 1; else yv = (int)yv - 1;
+            startEntryX = x + (int)xv;
+            startEntryY = y + (int)yv;
+            if (startEntryX < 0)
+            {
+                startEntryX = 1;
+                double entryY = y - Math.Sqrt(Math.Pow(r, 2.0) - Math.Pow(x - 0, 2.0));
+                if (entryY < 0)
+                    entryY = y + Math.Sqrt(Math.Pow(r, 2.0) - Math.Pow(x - 0, 2.0));
+                if (entryY > 10000)
+                    throw new Exception("out of range");
+                startEntryY = (int)entryY;
+            }
+            if (startEntryX > 10000)
+            {
+                startEntryX = 9999;
+                double entryY = y - Math.Sqrt(Math.Pow(r, 2.0) - Math.Pow(x - 0, 2.0));
+                if (entryY < 0)
+                    entryY = y + Math.Sqrt(Math.Pow(r, 2.0) - Math.Pow(x - 0, 2.0));
+                if (entryY > 10000)
+                    throw new Exception("out of range");
+                startEntryY = (int)entryY;
+            }
+            if (startEntryY < 0)
+            {
+                startEntryY = 1;
+                double entryX = x - Math.Sqrt(Math.Pow(r, 2.0) - Math.Pow(y - 0, 2.0));
+                if (entryX < 0)
+                    entryX = x + Math.Sqrt(Math.Pow(r, 2.0) - Math.Pow(y - 0, 2.0));
+                if (entryX > 10000)
+                    throw new Exception("out of range");
+                startEntryX = (int)entryX;
+            }
+            if (startEntryY > 10000)
+            {
+                startEntryY = 9999;
+                double entryX = x - Math.Sqrt(Math.Pow(r, 2.0) - Math.Pow(y - 0, 2.0));
+                if (entryX < 0)
+                    entryX = x + Math.Sqrt(Math.Pow(r, 2.0) - Math.Pow(y - 0, 2.0));
+                if (entryX > 10000)
+                    throw new Exception("out of range");
+                startEntryX = (int)entryX;
+            }
+            startEntryX = 600;
+            startEntryY = 800;
+            StartPoint = new Point(startEntryX, startEntryY);
+            
         }
 
         public List<Point> GetRoute(DataDTO dataDTO)
         {
+            int currentWeight= 0;
+            int currentVolume = 0;
             List<Point> route = new List<Point>();
-            int giftsCount = CollectGifts();
-            if (giftsCount == 0)
-            {
-                return null;
-            }
             childDTO farChild = FindFarChildFromWarehouse(dataDTO);
             if (farChild == null)
             {
                 return null;
             }
+            var newBag = new List<int>();
+            giftDTO giftForFirst = GetGift(farChild);
+            
+            if (giftForFirst == null)
+            {
+                throw new Exception("nu vse");
+            }
+            if (currentSum + giftForFirst.price > budget)
+            {
+                throw new Exception("dorogo");
+            }
+            currentWeight += giftForFirst.weight;
+            currentVolume += giftForFirst.volume;
+            currentSum += giftForFirst.price;
+            newBag.Add(giftForFirst.id);
             Point farChildPont = new Point(farChild.x, farChild.y);
             if (farChild.snowAreaDTO== null)
             {
-                route.AddRange(GetSafeRouteFromPointToPoint(Point.Empty, farChildPont));
+                route.Add(StartPoint);
+                route.AddRange(GetSafeRouteFromPointToPoint(StartPoint, farChildPont));
             }
             else
             {
+                route.Add(StartPoint);
                 Point farChildEntryPoint = new Point(farChild.entryX, farChild.entryY);
-                route.AddRange(GetSafeRouteFromPointToPoint(Point.Empty, farChildEntryPoint));
+                route.AddRange(GetSafeRouteFromPointToPoint(StartPoint, farChildEntryPoint));
                 route.Add(farChildPont);
             }
             childDTO lastChild = farChild;
             Point lastPoint;
-            for (int i = 1; i < giftsCount; i++)
+            
+            while (true)
             {
                 childDTO newChild = FindNearestChild(dataDTO, route.Last());
-                if (newChild != null)
+                if (newChild == null)
+                    break;
+                giftDTO gift = GetGift(newChild);
+                if (gift == null || currentSum + gift.price > budget
+                    || currentWeight + gift.weight > maxWeight
+                    || currentVolume + gift.volume > maxVolume)
                 {
-                    Point endPoint = new Point(newChild.x, newChild.y);
-                    if ((lastChild == null || lastChild.snowAreaDTO == null) && newChild.snowAreaDTO == null)
-                    {
-                        lastPoint = route.Last();
-                        route.AddRange(GetSafeRouteFromPointToPoint(lastPoint, endPoint));
-                    }
-                    else if (lastChild != null && lastChild.snowAreaDTO != null
-                        && newChild.snowAreaDTO == null)
-                    {
-                        lastPoint = route.Last();
-                        Point startPoint = new Point(lastChild.entryX, lastChild.entryY);
-                        route.Add(startPoint);
-                        route.AddRange(GetSafeRouteFromPointToPoint(startPoint, endPoint));
-                    }
-                    else if (lastChild != null && lastChild.snowAreaDTO == null
-                        && newChild.snowAreaDTO != null)
-                    {
-                        lastPoint = route.Last();
-                        endPoint = new Point(newChild.entryX, newChild.entryY);
-                        route.AddRange(GetSafeRouteFromPointToPoint(lastPoint, endPoint));
-                        route.Add(new Point(newChild.x, newChild.y));
-                    }
-                    else
-                    {
-                        route.Add(endPoint);
-                    }
-                    lastChild = newChild;
+                    break;
                 }
+
+                currentSum += gift.price;
+                currentWeight += gift.weight;
+                currentVolume += gift.volume;
+                newChild.visited= true;
+                newBag.Add(gift.id);
+
+                Point endPoint = new Point(newChild.x, newChild.y);
+                if ((lastChild == null || lastChild.snowAreaDTO == null) && newChild.snowAreaDTO == null)
+                {
+                    lastPoint = route.Last();
+                    route.AddRange(GetSafeRouteFromPointToPoint(lastPoint, endPoint));
+                }
+                else if (lastChild != null && lastChild.snowAreaDTO != null
+                    && newChild.snowAreaDTO == null)
+                {
+                    lastPoint = route.Last();
+                    Point startPoint = new Point(lastChild.entryX, lastChild.entryY);
+                    route.Add(startPoint);
+                    route.AddRange(GetSafeRouteFromPointToPoint(startPoint, endPoint));
+                }
+                else if (lastChild != null && lastChild.snowAreaDTO == null
+                    && newChild.snowAreaDTO != null)
+                {
+                    lastPoint = route.Last();
+                    endPoint = new Point(newChild.entryX, newChild.entryY);
+                    route.AddRange(GetSafeRouteFromPointToPoint(lastPoint, endPoint));
+                    route.Add(new Point(newChild.x, newChild.y));
+                }
+                else
+                {
+                    route.Add(endPoint);
+                }
+                lastChild = newChild;
             }
             if (lastChild == null || lastChild.snowAreaDTO == null)
             {
                 lastPoint = route.Last();
-                route.AddRange(GetSafeRouteFromPointToPoint(lastPoint, Point.Empty));
+                route.AddRange(GetSafeRouteFromPointToPoint(lastPoint, StartPoint));
+                route.Add(Point.Empty);
             }
             else
             {
                 lastPoint = route.Last();
                 Point startPoint = new Point(lastChild.entryX, lastChild.entryY);
                 route.Add(startPoint);
-                route.AddRange(GetSafeRouteFromPointToPoint(startPoint, Point.Empty));
+                route.AddRange(GetSafeRouteFromPointToPoint(startPoint, StartPoint));
+                route.Add(Point.Empty);
             }
-            
+            if (newBag.Count >0) { bags.Add(newBag); }
             moves.AddRange(route.Select(x => new moveDTO(x.X, x.Y)));
             return route;
         }
@@ -237,9 +340,6 @@ namespace Khakaton.DataHandler
                     }
                 }
             }
-
-            if (currentChild != null)
-                currentChild.visited = true;
             return currentChild;
         }
 
@@ -287,31 +387,32 @@ namespace Khakaton.DataHandler
 
         private void PackBags()
         {
-            List<giftDTO> gifts = warehouse;
-            List<List<int>> bags = new();
+            this.bags = new List<List<int>>();
+            //List<giftDTO> gifts = warehouse.OrderBy(x => x.price).Take(1000).ToList();
+            //List<List<int>> bags = new();
 
-            List<giftDTO> bag = new();
+            //List<giftDTO> bag = new();
 
-            for (int i = 0; i < gifts.Count(); i++)
-            {
-                if (CheckBagLimits(bag, gifts[i]))
-                {
-                    bag.Add(gifts[i]);
+            //for (int i = 0; i < gifts.Count(); i++)
+            //{
+            //    if (CheckBagLimits(bag, gifts[i]))
+            //    {
+            //        bag.Add(gifts[i]);
 
-                    if (i != gifts.Count() - 1)
-                        continue;
-                }
+            //        if (i != gifts.Count() - 1)
+            //            continue;
+            //    }
 
-                List<int> giftsIds = bag.Select(b => b.id).ToList();
-                bags.Add(giftsIds);
+            //    List<int> giftsIds = bag.Select(b => b.id).ToList();
+            //    bags.Add(giftsIds);
 
-                bag = new()
-                {
-                    gifts[i]
-                };
-            }
+            //    bag = new()
+            //    {
+            //        gifts[i]
+            //    };
+            //}
 
-            this.bags = bags;
+            //this.bags = bags;
         }
 
         private bool CheckBagLimits(List<giftDTO> bag, giftDTO extraGift)
@@ -371,5 +472,47 @@ namespace Khakaton.DataHandler
             else return 0;
 
         }
+
+        private giftDTO GetGift(childDTO child)
+        {
+            for (int i = 0; i < gifts.Count; i++)
+            {
+                if (givenGifts.Contains(gifts[i].id))
+                    continue;
+
+                if (!IsGiftAgeCorrect(gifts[i], child))
+                    continue;
+
+                if (child.Gender == Gender.Male)
+                {
+                    if (IsMaleOrAnyGift(gifts[i]))
+                    {
+                        givenGifts.Add(gifts[i].id);
+
+                        return gifts[i];
+                    }
+                }
+                else
+                {
+                    if (IsFemaleOrAnyGift(gifts[i]))
+                    {
+                        givenGifts.Add(gifts[i].id);
+
+                        return gifts[i];
+                    }
+                }
+            }
+
+            throw new Exception("Its impossible");
+        }
+
+        private bool IsMaleOrAnyGift(giftDTO gift) =>
+            GiftsData.data[gift.type].gender == Gender.Male || GiftsData.data[gift.type].gender == Gender.Any;
+
+        private bool IsFemaleOrAnyGift(giftDTO gift) =>
+            GiftsData.data[gift.type].gender == Gender.Female || GiftsData.data[gift.type].gender == Gender.Any;
+
+        private bool IsGiftAgeCorrect(giftDTO gift, childDTO child) =>
+            child.age >= GiftsData.data[gift.type].minAge && child.age <= GiftsData.data[gift.type].maxAge;
     }
 }

@@ -11,6 +11,7 @@ namespace Khakaton.DataHandler2Step
     {
         Data2DTO data;
         const int budget = 100000;
+        public List<PresentingGiftDTO> resultData { get; private set; }
         public Data2DTO GetData(string rawData)
         {
             data = JsonSerializer.Deserialize<Data2DTO>(rawData);
@@ -32,7 +33,7 @@ namespace Khakaton.DataHandler2Step
                     giftsAbove100Dollar.Add(data.gifts[i]);
             }
 
-            data.gifts = giftsAbove100Dollar.OrderByDescending(g => g.price).ToArray();
+            data.gifts = data.gifts.OrderByDescending(g => g.price).ToArray();
         }
 
         private void CalculateTotal(List<PresentingGiftDTO> result)
@@ -64,7 +65,7 @@ namespace Khakaton.DataHandler2Step
             }
 
             CalculateTotal(result);
-
+            resultData = result;
             return result;
         }
 
